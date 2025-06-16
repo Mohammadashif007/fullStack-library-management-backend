@@ -45,6 +45,6 @@ Create a .env file in the root and add:
 
 ```
 PORT=3000
-MONGO_URI=your_mongo_connection_string
+DATABASE_URI=your_mongo_connection_string
 ```
 
