@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { BookServices } from "./books.service";
-import { validatedBooks } from "./books.validation";
+import { validatedBooks, validatedPartialBooks } from "./books.validation";
 
 const createBook = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -66,7 +66,11 @@ const updateBook = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { bookId } = req.params;
     const updatedData = req.body;
-    const result = await BookServices.updateBookIntoDB(bookId, updatedData);
+    const validatedUpdateBook = validatedPartialBooks.parse(updatedData);
+    const result = await BookServices.updateBookIntoDB(
+      bookId,
+      validatedUpdateBook,
+    );
     res.status(200).json({
       success: true,
       message: "Book updated successfully",
