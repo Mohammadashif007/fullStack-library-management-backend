@@ -11,6 +11,17 @@ const createBorrow = async (req: Request, res: Response) => {
   });
 };
 
+const getBorrow = async (req: Request, res: Response) => {
+  const result = await BorrowServices.getBorrowedBooks();
+  res.status(201).json({
+    success: true,
+    message: "Borrowed book retrieve successfully",
+    data: result,
+  });
+};
+
 export const BorrowControllers = {
   createBorrow,
+  getBorrow
 };
+

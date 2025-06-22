@@ -19,6 +19,43 @@ const createBorrowIntoDB = async (payload: TBorrow) => {
   return result;
 };
 
+
+const getBorrowedBooks = async () => {
+  const result = await Borrow.aggregate([
+    {
+      $group: {
+        _id: "$book",
+        totalQuantity: { $sum: "$quantity" },
+      },
+    },
+    {
+      $lookup: {
+        from: "books", 
+        localField: "_id",
+        foreignField: "_id",
+        as: "bookDetails",
+      },
+    },
+    {
+      $unwind: "$bookDetails",
+    },
+    {
+      $project: {
+        _id: 0,
+        book: "$_id",
+        totalQuantity: 1,
+        bookDetails: {
+          title: "$bookDetails.title",
+          isbn: "$bookDetails.isbn",
+        },
+      },
+    },
+  ]);
+
+  return result;
+};
+
 export const BorrowServices = {
   createBorrowIntoDB,
+  getBorrowedBooks
 };
