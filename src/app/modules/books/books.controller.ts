@@ -19,7 +19,7 @@ const createBook = async (req: Request, res: Response, next: NextFunction) => {
 
 const getAllBooks = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const result = await BookServices.getAllBooksFromDB();
+    const result = await BookServices.getAllBooksFromDB(req.query);
     res.status(201).json({
       success: true,
       message: "All books retrieve successfully",
