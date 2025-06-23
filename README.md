@@ -50,6 +50,22 @@ npm run build
 node dist/server.js
 ```
 
+📘 API Documentation
+
+📚 Books API
+Create a new book: `POST /api/books`
+get all books: `GET /api/books`
+get single book: `GET /api/books/:bookId`
+update book: `PATCH /api/books/:bookId`
+delete book: `DELETE /api/books/:bookId`
+
+📙 Borrow API
+
+Borrow one or more books. Automatically adjusts book stock and availability.
+borrow books : `POST /api/borrow`
+Return a summary of borrowed books : `GET /api/borrow`
+
+
 
 
 

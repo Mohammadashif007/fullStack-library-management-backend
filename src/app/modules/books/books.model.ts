@@ -19,9 +19,7 @@ const bookSchema = new Schema<TBook>(
 
 // ! pre hook middleware
 bookSchema.pre("save", function (next) {
-  if (this.copies === 0) {
-    return next(new Error("Copies can't be zero"));
-  }
+  console.log(`Saving book: ${this.title}, Copies: ${this.copies}`);
   next();
 });
 

@@ -38,7 +38,7 @@ const getAllBooks = async (req: Request, res: Response, next: NextFunction) => {
     };
 
     const result = await BookServices.getAllBooksFromDB(queryParams);
-    res.status(201).json({
+    res.status(200).json({
       success: true,
       message: "All books retrieve successfully",
       data: result,
