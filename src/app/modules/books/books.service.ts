@@ -8,10 +8,13 @@ type QueryOptions = {
   limit?: number;
 };
 
+// ! post request
 const createBookIntoDB = async (book: TBook) => {
   const result = await Books.create(book);
   return result;
 };
+
+// !get request, retrieve all books
 const getAllBooksFromDB = async (queryParams: QueryOptions) => {
   const { filter, sortBy, sort, limit } = queryParams;
   const queryObject:{genre?: object} = {};
@@ -29,14 +32,19 @@ const getAllBooksFromDB = async (queryParams: QueryOptions) => {
   return result;
 };
 
+// ! single book retrieve from db
 const getSingleBookFromDB = async (id: string) => {
   const result = await Books.findById(id);
   return result;
 };
+
+// ! delete book from db
 const deleteBookFromDB = async (id: string) => {
   const result = await Books.findByIdAndDelete(id);
   return result;
 };
+
+// ! update book from db
 const updateBookIntoDB = async (id: string, payload: Partial<TBook>) => {
   const result = await Books.findByIdAndUpdate(id, payload, { new: true });
   return result;

@@ -10,6 +10,7 @@ interface QueryOptions {
   limit?: number;
 }
 
+// ! create book into db
 const createBook = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const data = req.body;
@@ -25,6 +26,7 @@ const createBook = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+// ! get all book from db
 const getAllBooks = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { filter, sortBy, sort, limit } = req.query;
@@ -46,6 +48,7 @@ const getAllBooks = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+// ! get single book from db
 const getSingleBook = async (
   req: Request,
   res: Response,
@@ -64,6 +67,7 @@ const getSingleBook = async (
   }
 };
 
+// ! delete book from db
 const deleteBook = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { bookId } = req.params;
@@ -78,6 +82,7 @@ const deleteBook = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+// ! update book into db
 const updateBook = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { bookId } = req.params;

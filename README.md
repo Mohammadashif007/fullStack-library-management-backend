@@ -4,6 +4,7 @@ A simple backend project to manage a library system using Node.js, Express.js, M
 
 ## 🚀 Key Features
 ✅ **CRUD for Books**: Create, Read, Update, and Delete operations for managing book entries  
+✅ **Filter, SortBy, Sort, Limit**: Filter books by genre, sort in ascending or descending order by a specific field and limit the number of results returned
 ✅ **Borrowing System**: Borrow books and automatically update available stock  
 ✅ **Aggregation**: See how many copies of each book have been borrowed using Mongoose aggregation  
 ✅ **Inventory Control**: Automatically marks books unavailable when stock reaches zero  
