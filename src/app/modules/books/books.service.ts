@@ -2,10 +2,10 @@ import { TBook } from "./books.interface";
 import { Books } from "./books.model";
 
 type QueryOptions = {
-  filter: string;
-  sortBy: string;
-  sort: string;
-  limit: number;
+  filter?: string;
+  sortBy?: string;
+  sort?: string;
+  limit?: number;
 };
 
 const createBookIntoDB = async (book: TBook) => {
@@ -14,14 +14,14 @@ const createBookIntoDB = async (book: TBook) => {
 };
 const getAllBooksFromDB = async (queryParams: QueryOptions) => {
   const { filter, sortBy, sort, limit } = queryParams;
-  const queryObject = {};
+  const queryObject:{genre?: object} = {};
   if (filter) {
     queryObject.genre = { $regex: filter, $options: "i" };
   }
   const baseQuery = Books.find(queryObject);
   if (sortBy) {
     const sortOrder = sort === "desc" ? -1 : 1;
-    baseQuery.sort({ [sortBy]: sortOrder });
+    baseQuery.sort({ [sortBy as string]: sortOrder });
   }
   
   baseQuery.limit(limit ?? 10);

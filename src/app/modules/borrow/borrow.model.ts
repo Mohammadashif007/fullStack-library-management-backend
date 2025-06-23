@@ -10,4 +10,4 @@ const borrowSchema = new Schema<TBorrow>(
   { timestamps: true },
 );
 
-export const Borrow = model<TBorrow>("Borrow", borrowSchema);
+export const Borrow = model<TBorrow>("Borrow", borrowSchema); 

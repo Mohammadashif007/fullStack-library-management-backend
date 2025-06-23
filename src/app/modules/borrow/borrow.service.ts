@@ -3,6 +3,7 @@ import { TBorrow } from "./borrow.interface";
 import { Borrow } from "./borrow.model";
 
 const createBorrowIntoDB = async (payload: TBorrow) => {
+  //! Static method implementation
   const book = await Books.findById(payload.book);
   if (!book) {
     throw new Error("Book not found");
@@ -14,7 +15,9 @@ const createBorrowIntoDB = async (payload: TBorrow) => {
   if (book.copies === 0) {
     book.available = false;
   }
+  // ! instance method implementation
   await book.save();
+  //! Static method implementation
   const result = await Borrow.create(payload);
   return result;
 };

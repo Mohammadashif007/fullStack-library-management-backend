@@ -2,6 +2,14 @@ import { NextFunction, Request, Response } from "express";
 import { BookServices } from "./books.service";
 import { validatedBooks, validatedPartialBooks } from "./books.validation";
 
+
+interface QueryOptions {
+  filter?: string;
+  sortBy?: string;
+  sort?: 'asc' | 'desc';
+  limit?: number;
+}
+
 const createBook = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const data = req.body;
@@ -19,7 +27,15 @@ const createBook = async (req: Request, res: Response, next: NextFunction) => {
 
 const getAllBooks = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const result = await BookServices.getAllBooksFromDB(req.query);
+    const { filter, sortBy, sort, limit } = req.query;
+        const queryParams: QueryOptions = {
+      filter: filter as string | undefined,
+      sortBy: sortBy as string,
+      sort: sort as 'asc' | 'desc',
+      limit: limit ? Number(limit) : undefined,
+    };
+
+    const result = await BookServices.getAllBooksFromDB(queryParams);
     res.status(201).json({
       success: true,
       message: "All books retrieve successfully",
