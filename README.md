@@ -1,19 +1,20 @@
-# NoSQL, Node.js & Express.js Starter Pack
+# 📚 Library Management System
 
-> Setting up a Node.js and Express.js project from scratch can be repetitive. With this starter pack, you no longer need to configure everything manually. Just clone the repository, connect connect your `DATABASE_URL`, and you are ready to kick off your project!
+A simple backend project to manage a library system using Node.js, Express.js, MongoDB (Mongoose), and TypeScript. This project includes full **CRUD operations for books**, a **borrow system** that updates inventory.
 
-## 🚀 Key features
-- ✅ TypeScript Integration: Strong Typing and error checking for safe code.
-- ✅ Modular Folder Structure: Organized directories like controllers/, route/, server/, /models for clean architecture.
-- ✅ Environment Variable Support: .env file handling for secure configuration.
-- ✅ Development Workflow Tools: Includes ts-node for hot-reloading during development
-- ✅ Linting and Formatting: Preconfigured ESLint and Prettier for consistent and clean code.
+## 🚀 Key Features
+✅ **CRUD for Books**: Create, Read, Update, and Delete operations for managing book entries  
+✅ **Borrowing System**: Borrow books and automatically update available stock  
+✅ **Aggregation**: See how many copies of each book have been borrowed using Mongoose aggregation  
+✅ **Inventory Control**: Automatically marks books unavailable when stock reaches zero  
+✅ **Global Error Handling**: Centralized and structured error responses  
 
 
-## 📦 Tech Stack
+
+## 🛠 Tech Stack
 - Node.js
-- Express
-- MongoDB
+- Express.js
+- MongoDB (via Mongoose)
 - TypeScript
 
 
@@ -21,10 +22,19 @@
 ## ⚙️ Installation
 
 ```
-git clone https://github.com/Mohammadashif007/NoSQL-project-setup-starter-pack.git
-cd NoSQL-project-setup-starter-pack
+git clone https://github.com/Mohammadashif007/library-management
+cd library-management
 npm install
 
+```
+
+
+🔐 Environment Variables
+Create a .env file in the root and add:
+
+```
+PORT=3000
+DATABASE_URI=your_mongo_connection_string
 ```
 
 
@@ -40,11 +50,5 @@ node dist/server.js
 ```
 
 
-🔐 Environment Variables
-Create a .env file in the root and add:
 
-```
-PORT=3000
-DATABASE_URI=your_mongo_connection_string
-```
 
