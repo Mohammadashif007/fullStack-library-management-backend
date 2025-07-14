@@ -3,7 +3,7 @@ import { TBorrow } from "./borrow.interface";
 
 const borrowSchema = new Schema<TBorrow>(
   {
-    book: { type: Schema.Types.ObjectId, required: true },
+    id: { type: Schema.Types.ObjectId, required: true },
     quantity: { type: Number, required: true },
     dueDate: { type: Date, required: true },
   },

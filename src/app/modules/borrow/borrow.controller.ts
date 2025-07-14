@@ -4,6 +4,7 @@ import { BorrowServices } from "./borrow.service";
 const createBorrow = async (req: Request, res: Response) => {
   const borrowData = req.body;
   const result = await BorrowServices.createBorrowIntoDB(borrowData);
+  console.log(result);
   res.status(201).json({
     success: true,
     message: "Book borrowed successfully",

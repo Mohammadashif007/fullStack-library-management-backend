@@ -1,12 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import { BookServices } from "./books.service";
-import { validatedBooks, validatedPartialBooks } from "./books.validation";
-
+import { bookValidation, updateBookValidation } from "./books.validation";
 
 interface QueryOptions {
   filter?: string;
   sortBy?: string;
-  sort?: 'asc' | 'desc';
+  sort?: "asc" | "desc";
   limit?: number;
 }
 
@@ -14,7 +13,7 @@ interface QueryOptions {
 const createBook = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const data = req.body;
-    const validatedBookData = validatedBooks.parse(data);
+    const validatedBookData = bookValidation.parse(data);
     const result = await BookServices.createBookIntoDB(validatedBookData);
     res.status(201).json({
       success: true,
@@ -30,10 +29,10 @@ const createBook = async (req: Request, res: Response, next: NextFunction) => {
 const getAllBooks = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { filter, sortBy, sort, limit } = req.query;
-        const queryParams: QueryOptions = {
+    const queryParams: QueryOptions = {
       filter: filter as string | undefined,
       sortBy: sortBy as string,
-      sort: sort as 'asc' | 'desc',
+      sort: sort as "asc" | "desc",
       limit: limit ? Number(limit) : undefined,
     };
 
@@ -83,21 +82,41 @@ const deleteBook = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 // ! update book into db
+// const updateBook = async (req: Request, res: Response, next: NextFunction) => {
+//   try {
+//     const { bookId } = req.params;
+//     const updatedData = req.body;
+//     const validatedUpdateBook = updateBookValidation.parse(updatedData);
+//     const result = await BookServices.updateBookInfo(
+//       bookId,
+//       validatedUpdateBook,
+//     );
+//     res.status(200).json({
+//       success: true,
+//       message: "Book updated successfully",
+//       data: result,
+//     });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
 const updateBook = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { bookId } = req.params;
     const updatedData = req.body;
-    const validatedUpdateBook = validatedPartialBooks.parse(updatedData);
-    const result = await BookServices.updateBookIntoDB(
-      bookId,
-      validatedUpdateBook,
-    );
+
+    console.log(updatedData);
+
+    const result = await BookServices.updateBookInfo(bookId, updatedData);
+
     res.status(200).json({
       success: true,
       message: "Book updated successfully",
       data: result,
     });
   } catch (error) {
+    console.error("❌ Controller Error:", error);
     next(error);
   }
 };

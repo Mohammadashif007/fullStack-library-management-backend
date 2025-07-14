@@ -17,7 +17,7 @@ const createBookIntoDB = async (book: TBook) => {
 // !get request, retrieve all books
 const getAllBooksFromDB = async (queryParams: QueryOptions) => {
   const { filter, sortBy, sort, limit } = queryParams;
-  const queryObject:{genre?: object} = {};
+  const queryObject: { genre?: object } = {};
   if (filter) {
     queryObject.genre = { $regex: filter, $options: "i" };
   }
@@ -26,7 +26,7 @@ const getAllBooksFromDB = async (queryParams: QueryOptions) => {
     const sortOrder = sort === "desc" ? -1 : 1;
     baseQuery.sort({ [sortBy as string]: sortOrder });
   }
-  
+
   baseQuery.limit(limit ?? 10);
   const result = await baseQuery;
   return result;
@@ -34,6 +34,7 @@ const getAllBooksFromDB = async (queryParams: QueryOptions) => {
 
 // ! single book retrieve from db
 const getSingleBookFromDB = async (id: string) => {
+  console.log(id);
   const result = await Books.findById(id);
   return result;
 };
@@ -45,9 +46,18 @@ const deleteBookFromDB = async (id: string) => {
 };
 
 // ! update book from db
-const updateBookIntoDB = async (id: string, payload: Partial<TBook>) => {
+// const updateBookIntoDB = async (id: string, payload: Partial<TBook>) => {
+//   console.log({payload});
+//   const result = await Books.findByIdAndUpdate(id, payload, { new: true });
+//   return result;
+// };
+
+const updateBookInfo = async (id: string, payload: TBook) => {
+  console.log(payload);
   const result = await Books.findByIdAndUpdate(id, payload, { new: true });
   return result;
+
+  // ... perform DB update
 };
 
 export const BookServices = {
@@ -55,5 +65,6 @@ export const BookServices = {
   getAllBooksFromDB,
   getSingleBookFromDB,
   deleteBookFromDB,
-  updateBookIntoDB,
+  updateBookInfo,
+  // updateBookIntoDB,
 };
