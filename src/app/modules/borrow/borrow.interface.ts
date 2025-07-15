@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
 
 export type TBorrow = {
-  id: Types.ObjectId;
+  book: Types.ObjectId | string;
   quantity: number;
   dueDate: Date;
 };

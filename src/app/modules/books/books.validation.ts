@@ -23,9 +23,9 @@ export const bookValidation = z.object({
     .min(1, "Genre cannot be empty"),
 
   isbn: z
-    .string({
+    .number({
       required_error: "ISBN is required",
-      invalid_type_error: "ISBN must be a string",
+      invalid_type_error: "ISBN must be a number ",
     })
     .min(1, "ISBN cannot be empty"),
 

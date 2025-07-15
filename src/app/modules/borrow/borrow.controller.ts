@@ -1,10 +1,15 @@
 import { Request, Response } from "express";
 import { BorrowServices } from "./borrow.service";
+import { createBorrowZodSchema } from "./borrow.validation";
 
 const createBorrow = async (req: Request, res: Response) => {
   const borrowData = req.body;
-  const result = await BorrowServices.createBorrowIntoDB(borrowData);
-  console.log(result);
+  // console.log(borrowData);
+
+  const validatedBorrowData = createBorrowZodSchema.parse(borrowData);
+  console.log(validatedBorrowData);
+  const result = await BorrowServices.createBorrowIntoDB(validatedBorrowData);
+
   res.status(201).json({
     success: true,
     message: "Book borrowed successfully",
@@ -16,13 +21,12 @@ const getBorrow = async (req: Request, res: Response) => {
   const result = await BorrowServices.getBorrowedBooks();
   res.status(201).json({
     success: true,
-    message: "Borrowed book retrieve successfully",
+    message: "Borrow aggregation retrieve successfully",
     data: result,
   });
 };
 
 export const BorrowControllers = {
   createBorrow,
-  getBorrow
+  getBorrow,
 };
-

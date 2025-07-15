@@ -3,9 +3,10 @@ import { TBorrow } from "./borrow.interface";
 import { Borrow } from "./borrow.model";
 
 const createBorrowIntoDB = async (payload: TBorrow) => {
-
+console.log(payload);
   //! Static method implementation
-  const book = await Books.findById(payload.id);
+  const book = await Books.findById(payload.book);
+ 
   if (!book) {
     throw new Error("Book not found");
   }
@@ -23,46 +24,41 @@ const createBorrowIntoDB = async (payload: TBorrow) => {
   return result;
 };
 
-const getBorrowedBooks = async() => {
-  const result = await Borrow.find();
+
+const getBorrowedBooks = async () => {
+  const result = await Borrow.aggregate([
+    {
+      $group: {
+        _id: "$book",
+        totalQuantity: { $sum: "$quantity" },
+      },
+    },
+    {
+      $lookup: {
+        from: "books", 
+        localField: "_id",
+        foreignField: "_id",
+        as: "bookDetails",
+      },
+    },
+    {
+      $unwind: "$bookDetails",
+    },
+    {
+      $project: {
+        _id: 0,
+        book: "$_id",
+        totalQuantity: 1,
+        bookDetails: {
+          title: "$bookDetails.title",
+          isbn: "$bookDetails.isbn",
+        },
+      },
+    },
+  ]);
+
   return result;
-}
-
-
-// const getBorrowedBooks = async () => {
-//   const result = await Borrow.aggregate([
-//     {
-//       $group: {
-//         _id: "$book",
-//         totalQuantity: { $sum: "$quantity" },
-//       },
-//     },
-//     {
-//       $lookup: {
-//         from: "books", 
-//         localField: "_id",
-//         foreignField: "_id",
-//         as: "bookDetails",
-//       },
-//     },
-//     {
-//       $unwind: "$bookDetails",
-//     },
-//     {
-//       $project: {
-//         _id: 0,
-//         book: "$_id",
-//         totalQuantity: 1,
-//         bookDetails: {
-//           title: "$bookDetails.title",
-//           isbn: "$bookDetails.isbn",
-//         },
-//       },
-//     },
-//   ]);
-
-//   return result;
-// };
+};
 
 export const BorrowServices = {
   createBorrowIntoDB,

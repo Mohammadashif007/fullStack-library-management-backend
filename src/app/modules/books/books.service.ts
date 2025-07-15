@@ -45,19 +45,12 @@ const deleteBookFromDB = async (id: string) => {
   return result;
 };
 
-// ! update book from db
-// const updateBookIntoDB = async (id: string, payload: Partial<TBook>) => {
-//   console.log({payload});
-//   const result = await Books.findByIdAndUpdate(id, payload, { new: true });
-//   return result;
-// };
+
 
 const updateBookInfo = async (id: string, payload: TBook) => {
-  console.log(payload);
+  payload.available = payload.copies > 0;
   const result = await Books.findByIdAndUpdate(id, payload, { new: true });
   return result;
-
-  // ... perform DB update
 };
 
 export const BookServices = {

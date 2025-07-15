@@ -2,7 +2,7 @@ export type TBook = {
   title: string;
   author: string;
   genre: string;
-  isbn: string;
+  isbn: number;
   copies: number;
   available: boolean;
 };

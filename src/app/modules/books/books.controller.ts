@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { BookServices } from "./books.service";
-import { bookValidation, updateBookValidation } from "./books.validation";
+import { bookValidation } from "./books.validation";
 
 interface QueryOptions {
   filter?: string;
@@ -13,6 +13,7 @@ interface QueryOptions {
 const createBook = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const data = req.body;
+    console.log("console log in server to see whether data is coming or not",data);
     const validatedBookData = bookValidation.parse(data);
     const result = await BookServices.createBookIntoDB(validatedBookData);
     res.status(201).json({
@@ -81,32 +82,10 @@ const deleteBook = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-// ! update book into db
-// const updateBook = async (req: Request, res: Response, next: NextFunction) => {
-//   try {
-//     const { bookId } = req.params;
-//     const updatedData = req.body;
-//     const validatedUpdateBook = updateBookValidation.parse(updatedData);
-//     const result = await BookServices.updateBookInfo(
-//       bookId,
-//       validatedUpdateBook,
-//     );
-//     res.status(200).json({
-//       success: true,
-//       message: "Book updated successfully",
-//       data: result,
-//     });
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-
 const updateBook = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { bookId } = req.params;
     const updatedData = req.body;
-
-    console.log(updatedData);
 
     const result = await BookServices.updateBookInfo(bookId, updatedData);
 

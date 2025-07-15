@@ -6,7 +6,7 @@ const bookSchema = new Schema<TBook>(
     title: { type: String, required: [true, "title is required"] },
     author: { type: String, required: [true, "author is required"] },
     genre: { type: String, required: [true, "genre is required"] },
-    isbn: { type: String, required: [true, "isbn is required"] },
+    isbn: { type: Number, required: [true, "isbn is required"] },
     copies: { type: Number, required: [true, "copies is required"] },
     available: {
       type: Boolean,
