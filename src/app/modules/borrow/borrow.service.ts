@@ -3,7 +3,6 @@ import { TBorrow } from "./borrow.interface";
 import { Borrow } from "./borrow.model";
 
 const createBorrowIntoDB = async (payload: TBorrow) => {
-console.log(payload);
   //! Static method implementation
   const book = await Books.findById(payload.book);
  
@@ -12,6 +11,9 @@ console.log(payload);
   }
   if (book.copies < payload.quantity) {
     throw new Error("Insufficient book stock");
+  }
+  if (payload.quantity < 0) {
+    throw new Error("Negative number can't be acceptable");
   }
   book.copies -= payload.quantity;
   if (book.copies === 0) {

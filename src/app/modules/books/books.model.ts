@@ -7,7 +7,10 @@ const bookSchema = new Schema<TBook>(
     author: { type: String, required: [true, "author is required"] },
     genre: { type: String, required: [true, "genre is required"] },
     isbn: { type: Number, required: [true, "isbn is required"] },
-    copies: { type: Number, required: [true, "copies is required"] },
+    copies: {
+      type: Number,
+      required: [true, "copies is required"],
+    },
     available: {
       type: Boolean,
       required: [true, "available value is required"],
@@ -18,13 +21,11 @@ const bookSchema = new Schema<TBook>(
 
 // ! pre hook middleware
 bookSchema.pre("save", function (next) {
-  console.log(`Saving book: ${this.title}, Copies: ${this.copies}`);
   next();
 });
 
 // ! post hook middleware
 bookSchema.post("save", function (doc, next) {
-  console.log(`The title of book is "${doc.title}" is saved.`);
   next();
 });
 

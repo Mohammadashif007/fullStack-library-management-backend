@@ -34,7 +34,6 @@ const getAllBooksFromDB = async (queryParams: QueryOptions) => {
 
 // ! single book retrieve from db
 const getSingleBookFromDB = async (id: string) => {
-  console.log(id);
   const result = await Books.findById(id);
   return result;
 };
@@ -45,11 +44,15 @@ const deleteBookFromDB = async (id: string) => {
   return result;
 };
 
-
-
 const updateBookInfo = async (id: string, payload: TBook) => {
-  payload.available = payload.copies > 0;
-  const result = await Books.findByIdAndUpdate(id, payload, { new: true });
+  if (payload.copies < 0) {
+    throw new Error("Updated Copies can't be zero or negative");
+  }
+  const result = await Books.findByIdAndUpdate(
+    id,
+    { ...payload, available: payload.copies === 0 ? false : true },
+    { new: true },
+  );
   return result;
 };
 

@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import { BookServices } from "./books.service";
-import { bookValidation } from "./books.validation";
 
 interface QueryOptions {
   filter?: string;
@@ -12,10 +11,7 @@ interface QueryOptions {
 // ! create book into db
 const createBook = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const data = req.body;
-    console.log("console log in server to see whether data is coming or not",data);
-    const validatedBookData = bookValidation.parse(data);
-    const result = await BookServices.createBookIntoDB(validatedBookData);
+    const result = await BookServices.createBookIntoDB(req.body);
     res.status(201).json({
       success: true,
       message: "Book created successfully",
@@ -38,6 +34,7 @@ const getAllBooks = async (req: Request, res: Response, next: NextFunction) => {
     };
 
     const result = await BookServices.getAllBooksFromDB(queryParams);
+
     res.status(200).json({
       success: true,
       message: "All books retrieve successfully",
@@ -86,7 +83,6 @@ const updateBook = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { bookId } = req.params;
     const updatedData = req.body;
-
     const result = await BookServices.updateBookInfo(bookId, updatedData);
 
     res.status(200).json({
