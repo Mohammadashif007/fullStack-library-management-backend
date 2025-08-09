@@ -1,11 +1,8 @@
-# 📚 Library Management System
-
+# 📚 Borrow Book – Frontend
 A simple backend project to manage a library system using Node.js, Express.js, MongoDB (Mongoose), and TypeScript. This project includes full **CRUD operations for books**, a **borrow system** that updates inventory.
 
 ## 🚀 Key Features
 ✅ **CRUD for Books**: Create, Read, Update, and Delete operations for managing book entries  
-✅ **Filter, SortBy, Sort, Limit**: Filter books by genre, sort in ascending or descending order by a specific field and limit the number of results returned
-
 ✅ **Borrowing System**: Borrow books and automatically update available stock  
 ✅ **Aggregation**: See how many copies of each book have been borrowed using Mongoose aggregation  
 ✅ **Inventory Control**: Automatically marks books unavailable when stock reaches zero  
@@ -24,8 +21,8 @@ A simple backend project to manage a library system using Node.js, Express.js, M
 ## ⚙️ Installation
 
 ```
-git clone https://github.com/Mohammadashif007/library-management
-cd library-management
+git clone [https://github.com/Mohammadashif007/library-management](https://github.com/Mohammadashif007/fullStack-library-management-backend.git)
+cd fullStack-library-management-backend
 npm install
 
 ```
@@ -54,17 +51,16 @@ node dist/server.js
 📘 API Documentation
 
 📚 Books API
-Create a new book: `POST /api/books`
+Create a new book: `POST/api/create-book`
 get all books: `GET /api/books`
 get single book: `GET /api/books/:bookId`
 update book: `PATCH /api/books/:bookId`
 delete book: `DELETE /api/books/:bookId`
 
 📙 Borrow API
-
 Borrow one or more books. Automatically adjusts book stock and availability.
-borrow books : `POST /api/borrow`
-Return a summary of borrowed books : `GET /api/borrow`
+borrow books: `POST /api/borrow`
+Return a summary of borrowed books: `GET /api/borrow-summary `
 
 
 
