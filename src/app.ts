@@ -11,9 +11,13 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["https://library-management-client-rouge.vercel.app"],
+    origin: [
+      "http://localhost:5173",
+      "https://library-management-client-rouge.vercel.app",
+    ],
   }),
 );
+// app.use(cors());
 
 // ! application api
 app.use("/api", BookRouters);
