@@ -9,15 +9,20 @@ import { notFound } from "./app/middleware/notFound";
 const app = express();
 
 app.use(express.json());
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "https://library-management-client-rouge.vercel.app",
-    ],
-  }),
-);
-// app.use(cors());
+app.use(cors({
+  origin: ["https://library-management-client-rouge.vercel.app"]
+}))
+
+// app.use(
+//   cors({
+//     origin: [
+//       "http://localhost:5173",
+//       "https://library-management-client-rouge.vercel.app",
+//     ],
+//   }),
+// );
+
+
 
 // ! application api
 app.use("/api", BookRouters);
